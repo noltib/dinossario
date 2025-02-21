@@ -22,7 +22,10 @@ correndo = [[pygame.image.load(os.path.join("Assets/Dino", "DinoRun1.png")),
             pygame.image.load(os.path.join("Assets/Dino", "DinoRun2_niver.png"))],
             
             [pygame.image.load(os.path.join("Assets/Dino", "DinoRun1_dino.png")),
-            pygame.image.load(os.path.join("Assets/Dino", "DinoRun2_dino.png"))]]
+            pygame.image.load(os.path.join("Assets/Dino", "DinoRun2_dino.png"))],
+
+            [pygame.image.load(os.path.join("Assets/Dino", "DinoRun1_morte.png")),
+            pygame.image.load(os.path.join("Assets/Dino", "DinoRun2_morte.png"))]]
 
 pulando = [pygame.image.load(os.path.join("Assets/Dino", "DinoJump.png")),
 
@@ -32,7 +35,9 @@ pulando = [pygame.image.load(os.path.join("Assets/Dino", "DinoJump.png")),
            
            pygame.image.load(os.path.join("Assets/Dino", "DinoJump_niver.png")),
 
-           pygame.image.load(os.path.join("Assets/Dino", "DinoJump_dino.png"))]
+           pygame.image.load(os.path.join("Assets/Dino", "DinoJump_dino.png")),
+
+           pygame.image.load(os.path.join("Assets/Dino", "DinoJump_morte.png"))]
 
 abaixando = [[pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1.png")),
              pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2.png"))],
@@ -47,7 +52,10 @@ abaixando = [[pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1.png")),
              pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2_niver.png"))],
 
             [pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1_dino.png")),
-             pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2_dino.png"))]]
+             pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2_dino.png"))],
+
+            [pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1_morte.png")),
+             pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2_morte.png"))]]
 
 bazuca = [[pygame.image.load(os.path.join("Assets/Dino", "DinoRunB1.png")),
           pygame.image.load(os.path.join("Assets/Dino", "DinoRunB2.png"))],
@@ -62,7 +70,10 @@ bazuca = [[pygame.image.load(os.path.join("Assets/Dino", "DinoRunB1.png")),
           pygame.image.load(os.path.join("Assets/Dino", "DinoRunB2_niver.png"))],
 
           [pygame.image.load(os.path.join("Assets/Dino", "DinoRunB1_dino.png")),
-          pygame.image.load(os.path.join("Assets/Dino", "DinoRunB2_dino.png"))]]
+          pygame.image.load(os.path.join("Assets/Dino", "DinoRunB2_dino.png"))],
+
+          [pygame.image.load(os.path.join("Assets/Dino", "DinoRunB1_morte.png")),
+          pygame.image.load(os.path.join("Assets/Dino", "DinoRunB2_morte.png"))]]
 
 voando = [[pygame.image.load(os.path.join("Assets/Dino", "DinoFly1.png")),
           pygame.image.load(os.path.join("Assets/Dino", "DinoFly2.png"))],
@@ -77,7 +88,10 @@ voando = [[pygame.image.load(os.path.join("Assets/Dino", "DinoFly1.png")),
           pygame.image.load(os.path.join("Assets/Dino", "DinoFly2_niver.png"))],
 
           [pygame.image.load(os.path.join("Assets/Dino", "DinoFly1_dino.png")),
-          pygame.image.load(os.path.join("Assets/Dino", "DinoFly2_dino.png"))]]
+          pygame.image.load(os.path.join("Assets/Dino", "DinoFly2_dino.png"))],
+
+          [pygame.image.load(os.path.join("Assets/Dino", "DinoFly1_morte.png")),
+          pygame.image.load(os.path.join("Assets/Dino", "DinoFly2_morte.png"))]]
 
 cactus_pequeno = [pygame.image.load(os.path.join("Assets/Cactus", "SmallCactus1.png")),
                   pygame.image.load(os.path.join("Assets/Cactus", "SmallCactus2.png")),
@@ -113,6 +127,9 @@ b_niver = [pygame.image.load(os.path.join("Assets/Other", "niver.png")),
         pygame.image.load(os.path.join("Assets/Other", "bloqueado.png"))]
 b_dino = [pygame.image.load(os.path.join("Assets/Other", "dino.png")),
         pygame.image.load(os.path.join("Assets/Other", "dino_sel.png")),
+        pygame.image.load(os.path.join("Assets/Other", "bloqueado.png"))]
+b_morte = [pygame.image.load(os.path.join("Assets/Other", "morte.png")),
+        pygame.image.load(os.path.join("Assets/Other", "morte_sel.png")),
         pygame.image.load(os.path.join("Assets/Other", "bloqueado.png"))]
 
 if os.path.exists("pontos.txt"):
@@ -501,7 +518,7 @@ class Boss:
         self.vida -= quantidade
         if self.vida <= 5:
             self.type = 1
-            self.ataque_cooldown = 800
+            self.ataque_cooldown = 700
         if self.vida <= 0:
             self.morrer()
 
@@ -548,10 +565,10 @@ def main():
     DANI = Dani()
     ALEXANDRE = Alexandre()
     boss = Boss(boss_img, 0)  # Cria o boss
-    vel_jogo = 40
+    vel_jogo = 14
     x_pos_bg = 0
     y_pos_bg = 380
-    pontos = 3000
+    pontos = 1
     fonte = pygame.font.Font('Minecraft.ttf', 20)
     obstacles = []
     
@@ -666,6 +683,7 @@ def main():
 def m_skins():
     global maior_pontuacao, skin
     funciona = True
+    fonte_maior = pygame.font.Font('Minecraft.ttf', 20)
     if os.path.exists("pontos.txt"):
             with open("pontos.txt", "r") as file:
                 maior_pontuacao = int(file.read())
@@ -711,24 +729,58 @@ def m_skins():
                 dino_sel = 0
         else:
             dino_sel = 2
+        if mortes >= 100:
+            if skin == 5:
+                morte_sel = 1
+            else:
+                morte_sel = 0
+        else:
+            morte_sel = 2
         
         nor = b_normal[nor_sel]
         emoo = b_emo[emo_sel]
         inve = b_inv[inv_sel]
         niver = b_niver[niver_sel]
         dino = b_dino[dino_sel]
+        morte = b_morte[morte_sel]
+
+        titulo_normal = fonte_maior.render("Dinossario", True, (0, 0, 0))
+        titulo_emo = fonte_maior.render("Emo", True, (0, 0, 0))
+        titulo_invertido = fonte_maior.render("oirassoniD", True, (0, 0, 0))
+        titulo_niver = fonte_maior.render("Aniversario", True, (0, 0, 0))
+        titulo_dino = fonte_maior.render("Dino^2", True, (0, 0, 0))
+        titulo_morte = fonte_maior.render("Morte", True, (0, 0, 0))
+
+        normal_rect_t = titulo_normal.get_rect(center=(largura_tela // 4, altura_tela // 3.6))
+        emo_rect_t = titulo_emo.get_rect(center=(largura_tela // 2, altura_tela // 3.6))
+        inver_rect_t = titulo_invertido.get_rect(center=(largura_tela // 1.3, altura_tela // 3.6))
+        niver_rect_t = titulo_niver.get_rect(center=(largura_tela // 4, altura_tela // 1.25))
+        dino_rect_t = titulo_dino.get_rect(center=(largura_tela // 2, altura_tela // 1.25))
+        morte_rect_t = titulo_morte.get_rect(center=(largura_tela // 1.3, altura_tela // 1.25))
+        
         normal_rect = nor.get_rect(center=(largura_tela // 4, altura_tela // 4))
         emo_rect = emoo.get_rect(center=(largura_tela // 2, altura_tela // 4))
         inver_rect = inve.get_rect(center=(largura_tela // 1.3, altura_tela // 4))
         niver_rect = niver.get_rect(center=(largura_tela // 4, altura_tela // 1.3))
         dino_rect = dino.get_rect(center=(largura_tela // 2, altura_tela // 1.3))
+        morte_rect = dino.get_rect(center=(largura_tela // 1.3, altura_tela // 1.3))
+        
 
         # Desenha os botões na tela
+
         tela.blit(nor, normal_rect)
         tela.blit(emoo, emo_rect)
         tela.blit(inve, inver_rect)
         tela.blit(niver, niver_rect)
         tela.blit(dino, dino_rect)
+        tela.blit(morte, morte_rect)
+
+        tela.blit(titulo_normal, normal_rect_t)
+        tela.blit(titulo_emo, emo_rect_t)
+        tela.blit(titulo_invertido, inver_rect_t)
+        tela.blit(titulo_niver, niver_rect_t)
+        tela.blit(titulo_dino, dino_rect_t)
+        tela.blit(titulo_morte, morte_rect_t)
 
         # Atualiza a tela
         pygame.display.update()
@@ -768,6 +820,10 @@ def m_skins():
                     if dino_rect.collidepoint(mouse_pos):
                         skin = 4  # Seleciona a skin invertida
                         print("Skin dino^2 selecionada!")
+                if not morte_sel == 2:
+                    if morte_rect.collidepoint(mouse_pos):
+                        skin = 5  # Seleciona a skin invertida
+                        print("Skin morte selecionada!")
                     
 
             if event.type == pygame.KEYDOWN:
