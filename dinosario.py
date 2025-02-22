@@ -565,10 +565,10 @@ def main():
     DANI = Dani()
     ALEXANDRE = Alexandre()
     boss = Boss(boss_img, 0)  # Cria o boss
-    vel_jogo = 14
+    vel_jogo = 40
     x_pos_bg = 0
     y_pos_bg = 380
-    pontos = 1
+    pontos = 2800
     fonte = pygame.font.Font('Minecraft.ttf', 20)
     obstacles = []
     
@@ -684,6 +684,7 @@ def m_skins():
     global maior_pontuacao, skin
     funciona = True
     fonte_maior = pygame.font.Font('Minecraft.ttf', 20)
+    fonte_menor = pygame.font.Font('Minecraft.ttf', 15)
     if os.path.exists("pontos.txt"):
             with open("pontos.txt", "r") as file:
                 maior_pontuacao = int(file.read())
@@ -744,12 +745,28 @@ def m_skins():
         dino = b_dino[dino_sel]
         morte = b_morte[morte_sel]
 
+
+
         titulo_normal = fonte_maior.render("Dinossario", True, (0, 0, 0))
         titulo_emo = fonte_maior.render("Emo", True, (0, 0, 0))
         titulo_invertido = fonte_maior.render("oirassoniD", True, (0, 0, 0))
         titulo_niver = fonte_maior.render("Aniversario", True, (0, 0, 0))
         titulo_dino = fonte_maior.render("Dino^2", True, (0, 0, 0))
         titulo_morte = fonte_maior.render("Morte", True, (0, 0, 0))
+
+        
+
+        texto_normal = fonte_menor.render("skin inicial", True, (0, 0, 0))
+        texto_emo1 = fonte_menor.render("Atinja 1000 pontos", True, (0, 0, 0))
+        texto_invertido1 = fonte_menor.render("Atinja 2000 pontos", True, (0, 0, 0))
+        texto_niver1 = fonte_menor.render("Atinja 4000 pontos", True, (0, 0, 0))
+        texto_dino1 = fonte_menor.render("Atinja 7000 pontos", True, (0, 0, 0))
+        texto_morte1 = fonte_menor.render("Morra 100 vezes", True, (0, 0, 0))
+        texto_emo2 = fonte_menor.render("para desbloquear", True, (0, 0, 0))
+        texto_invertido2 = fonte_menor.render("para desbloquear", True, (0, 0, 0))
+        texto_niver2 = fonte_menor.render("para desbloquear", True, (0, 0, 0))
+        texto_dino2 = fonte_menor.render("para desbloquear", True, (0, 0, 0))
+        texto_morte2 = fonte_menor.render("para desbloquear", True, (0, 0, 0))
 
         normal_rect_t = titulo_normal.get_rect(center=(largura_tela // 4, altura_tela // 3.6))
         emo_rect_t = titulo_emo.get_rect(center=(largura_tela // 2, altura_tela // 3.6))
@@ -758,6 +775,18 @@ def m_skins():
         dino_rect_t = titulo_dino.get_rect(center=(largura_tela // 2, altura_tela // 1.25))
         morte_rect_t = titulo_morte.get_rect(center=(largura_tela // 1.3, altura_tela // 1.25))
         
+        normal_rect_te = texto_normal.get_rect(center=(largura_tela // 4, altura_tela // 3))
+        emo_rect_te1 = texto_emo1.get_rect(center=(largura_tela // 2, altura_tela // 3))
+        inver_rect_te1 = texto_invertido1.get_rect(center=(largura_tela // 1.3, altura_tela // 3))
+        niver_rect_te1 = texto_niver1.get_rect(center=(largura_tela // 4, altura_tela // 1.15))
+        dino_rect_te1 = texto_dino1.get_rect(center=(largura_tela // 2, altura_tela // 1.15))
+        morte_rect_te1 = texto_morte1.get_rect(center=(largura_tela // 1.3, altura_tela // 1.15))
+        emo_rect_te2 = texto_emo2.get_rect(center=(largura_tela // 2, altura_tela // 2.7))
+        inver_rect_te2 = texto_invertido2.get_rect(center=(largura_tela // 1.3, altura_tela // 2.7))
+        niver_rect_te2 = texto_niver2.get_rect(center=(largura_tela // 4, altura_tela // 1.1))
+        dino_rect_te2 = texto_dino2.get_rect(center=(largura_tela // 2, altura_tela // 1.1))
+        morte_rect_te2 = texto_morte2.get_rect(center=(largura_tela // 1.3, altura_tela // 1.1))
+
         normal_rect = nor.get_rect(center=(largura_tela // 4, altura_tela // 4))
         emo_rect = emoo.get_rect(center=(largura_tela // 2, altura_tela // 4))
         inver_rect = inve.get_rect(center=(largura_tela // 1.3, altura_tela // 4))
@@ -781,6 +810,18 @@ def m_skins():
         tela.blit(titulo_niver, niver_rect_t)
         tela.blit(titulo_dino, dino_rect_t)
         tela.blit(titulo_morte, morte_rect_t)
+        
+        tela.blit(texto_normal, normal_rect_te)
+        tela.blit(texto_emo1, emo_rect_te1)
+        tela.blit(texto_invertido1, inver_rect_te1)
+        tela.blit(texto_niver1, niver_rect_te1)
+        tela.blit(texto_dino1, dino_rect_te1)
+        tela.blit(texto_morte1, morte_rect_te1)
+        tela.blit(texto_emo2, emo_rect_te2)
+        tela.blit(texto_invertido2, inver_rect_te2)
+        tela.blit(texto_niver2, niver_rect_te2)
+        tela.blit(texto_dino2, dino_rect_te2)
+        tela.blit(texto_morte2, morte_rect_te2)
 
         # Atualiza a tela
         pygame.display.update()
