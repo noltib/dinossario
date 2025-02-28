@@ -105,9 +105,10 @@ espinho = [pygame.image.load(os.path.join("Assets/Other", "espinhos.png"))]
 parede = [pygame.image.load(os.path.join("Assets/Other", "parede.png"))]
 boss_img = [pygame.image.load(os.path.join("Assets/Other", "boss1.png")),
             pygame.image.load(os.path.join("Assets/Other", "boss2.png"))]
-nuvem = [pygame.image.load(os.path.join("Assets/Other", "Cloud.png")),
-         pygame.image.load(os.path.join("Assets/Other", "alexandre.png")),
-         pygame.image.load(os.path.join("Assets/Other", "dani.png"))]
+nuvem = pygame.image.load(os.path.join("Assets/Other", "Cloud.png"))
+minora = pygame.image.load(os.path.join("Assets/Other", "minora.png"))
+dani = pygame.image.load(os.path.join("Assets/Other", "dani.png"))
+alexandre = pygame.image.load(os.path.join("Assets/Other", "alexandre.png"))
 nsei = 0
 fundo = pygame.image.load(os.path.join("Assets/Other", "Track.png"))
 
@@ -333,32 +334,69 @@ class dinossauro:
             proj.draw(tela)
 
 class cloud:
-
     #nuvem :D
-    def __init__(self,nsei):
-        self.nsei = nsei
+    def __init__(self):
         self.x = largura_tela + random.randint(700, 1000)
         self.y = random.randint(40, 110)
-        self.image = nuvem[self.nsei]
+        self.image = nuvem
         self.largura = self.image.get_width()
-        
-       
 
     def update(self):
         self.x -= vel_jogo
-        self.tempo = pygame.time.get_ticks()
         if self.x < -self.largura:
-            self.x = largura_tela + random.randint(250, 300)
+            self.x = largura_tela + random.randint(2500, 3000)
             self.y = random.randint(50, 100)
-        if pygame.time.get_ticks() - self.tempo > 300:
-                    aleatorio = random.randit(1,5) 
-                    if aleatorio == 5:
-                        print("buu")
-                        teste = random.randint(0,1)
-                        if teste == 0:
-                            self.nsei = 1
-                        else:
-                            self.nsei = 2
+
+    def draw(self, tela): 
+        tela.blit(self.image, (self.x, self.y))
+
+class Minora:
+    #KAKAKAKAK
+    def __init__(self):
+        self.x = largura_tela + random.randint(1000, 100000)
+        self.y = random.randint(40, 110)
+        self.image = minora
+        self.largura = self.image.get_width()
+
+    def update(self):
+        self.x -= vel_jogo
+        if self.x < -self.largura:
+            self.x = largura_tela + random.randint(2500, 300000)
+            self.y = random.randint(50, 100)
+
+    def draw(self, tela): 
+        tela.blit(self.image, (self.x, self.y))
+
+class Dani:
+    #KAKAKAKAK
+    def __init__(self):
+        self.x = largura_tela + random.randint(1000, 100000)
+        self.y = random.randint(40, 110)
+        self.image = dani
+        self.largura = self.image.get_width()
+
+    def update(self):
+        self.x -= vel_jogo
+        if self.x < -self.largura:
+            self.x = largura_tela + random.randint(2500, 300000)
+            self.y = random.randint(50, 100)
+
+    def draw(self, tela): 
+        tela.blit(self.image, (self.x, self.y))
+class Alexandre:
+    #KAKAKAKAK
+    def __init__(self):
+        self.x = largura_tela + random.randint(1000, 100000)
+        self.y = random.randint(40, 110)
+        self.image = alexandre
+        self.largura = self.image.get_width()
+
+    def update(self):
+        self.x -= vel_jogo
+        if self.x < -self.largura:
+            self.x = largura_tela + random.randint(2500, 300000)
+            self.y = random.randint(50, 100)
+
     def draw(self, tela): 
         tela.blit(self.image, (self.x, self.y))
 
@@ -426,14 +464,14 @@ class Boss:
         self.image = image
         self.type = type
         self.rect = self.image[self.type].get_rect()
-        self.rect.x = largura_tela  # Começa fora da tela
+        self.rect.x = largura_tela  
         self.rect.y = 150  # Posição Y do boss
         self.vida = 10  # Vida do boss
-        self.velocidade = 5  # Velocidade de movimento
-        self.ataque_cooldown = 0  # Tempo entre ataques (em milissegundos)
-        self.ultimo_ataque = pygame.time.get_ticks()  # Tempo do último ataque
-        self.ataques = []  # Lista de ataques (quadrados vermelhos)
-        self.derrotado = True  # Indica se o boss foi derrotado
+        self.velocidade = 5  
+        self.ataque_cooldown = 1000  
+        self.ultimo_ataque = pygame.time.get_ticks()  
+        self.ataques = []  
+        self.derrotado = True  
         self.x_barra = 800
 
         
@@ -524,7 +562,10 @@ def main():
     funcionar = True
     relogio = pygame.time.Clock()
     player = dinossauro()
-    Nuvem = cloud(nsei)
+    Nuvem = cloud()
+    MINORA = Minora()
+    DANI = Dani()
+    ALEXANDRE = Alexandre()
     boss = Boss(boss_img, 0)  # Cria o boss
     vel_jogo = 14
     x_pos_bg = 0
@@ -628,9 +669,13 @@ def main():
         Nuvem.draw(tela)
         Nuvem.update()
 
+        MINORA.draw(tela)
+        MINORA.update()
+        DANI.draw(tela)
+        DANI.update()
+        ALEXANDRE.draw(tela)
+        ALEXANDRE.update()
        
-       
-
         background()
         pontuacao()
 
@@ -711,7 +756,7 @@ def m_skins():
         titulo_dino = fonte_maior.render("Dino^2", True, (0, 0, 0))
         titulo_morte = fonte_maior.render("Morte", True, (0, 0, 0))
 
-        
+        texto_info = fonte_menor.render("pressione esc para sair", True, (0, 0, 0))
 
         texto_normal = fonte_menor.render("skin inicial", True, (0, 0, 0))
         texto_emo1 = fonte_menor.render("Atinja 1000 pontos", True, (0, 0, 0))
@@ -731,6 +776,7 @@ def m_skins():
         niver_rect_t = titulo_niver.get_rect(center=(largura_tela // 4, altura_tela // 1.25))
         dino_rect_t = titulo_dino.get_rect(center=(largura_tela // 2, altura_tela // 1.25))
         morte_rect_t = titulo_morte.get_rect(center=(largura_tela // 1.3, altura_tela // 1.25))
+        texto_info_rect = titulo_morte.get_rect(center=(40, 50))
         
         normal_rect_te = texto_normal.get_rect(center=(largura_tela // 4, altura_tela // 3))
         emo_rect_te1 = texto_emo1.get_rect(center=(largura_tela // 2, altura_tela // 3))
@@ -779,6 +825,7 @@ def m_skins():
         tela.blit(texto_niver2, niver_rect_te2)
         tela.blit(texto_dino2, dino_rect_te2)
         tela.blit(texto_morte2, morte_rect_te2)
+        tela.blit(texto_info, texto_info_rect)
 
         # Atualiza a tela
         pygame.display.update()
@@ -795,34 +842,27 @@ def m_skins():
 
 
                 if normal_rect.collidepoint(mouse_pos):
-                    skin = 0  # Seleciona a skin normal
-                    print("Skin normal selecionada!")
-                    
+                    skin = 0 
                     
                 if not emo_sel ==2:
                     if emo_rect.collidepoint(mouse_pos):
-                        skin = 1  # Seleciona a skin emo
-                        print("Skin emo selecionada!") 
+                        skin = 1  
                         
-                    
                 if not inv_sel == 2:
                     if inver_rect.collidepoint(mouse_pos):
-                        skin = 2  # Seleciona a skin invertida
-                        print("Skin invertida selecionada!")
-                
+                        skin = 2 
+
                 if not niver_sel == 2:
                     if niver_rect.collidepoint(mouse_pos):
-                        skin = 3  # Seleciona a skin invertida
-                        print("Skin aniversario selecionada!")
+                        skin = 3 
+
                 if not dino_sel == 2:
                     if dino_rect.collidepoint(mouse_pos):
-                        skin = 4  # Seleciona a skin invertida
-                        print("Skin dino^2 selecionada!")
+                        skin = 4  
+
                 if not morte_sel == 2:
                     if morte_rect.collidepoint(mouse_pos):
-                        skin = 5  # Seleciona a skin invertida
-                        print("Skin morte selecionada!")
-                    
+                        skin = 5  
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:  # Volta ao menu principal ao pressionar ESC
