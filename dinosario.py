@@ -346,6 +346,7 @@ class cloud:
 
     def update(self):
         self.x -= vel_jogo
+        self.tempo = pygame.time.get_ticks()
         if self.x < -self.largura:
             self.x = largura_tela + random.randint(250, 300)
             self.y = random.randint(50, 100)
