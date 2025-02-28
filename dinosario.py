@@ -105,10 +105,10 @@ espinho = [pygame.image.load(os.path.join("Assets/Other", "espinhos.png"))]
 parede = [pygame.image.load(os.path.join("Assets/Other", "parede.png"))]
 boss_img = [pygame.image.load(os.path.join("Assets/Other", "boss1.png")),
             pygame.image.load(os.path.join("Assets/Other", "boss2.png"))]
-nuvem = pygame.image.load(os.path.join("Assets/Other", "Cloud.png"))
-minora = pygame.image.load(os.path.join("Assets/Other", "minora.png"))
-dani = pygame.image.load(os.path.join("Assets/Other", "dani.png"))
-alexandre = pygame.image.load(os.path.join("Assets/Other", "alexandre.png"))
+nuvem = [pygame.image.load(os.path.join("Assets/Other", "Cloud.png")),
+         pygame.image.load(os.path.join("Assets/Other", "alexandre.png")),
+         pygame.image.load(os.path.join("Assets/Other", "dani.png"))]
+nsei = 0
 fundo = pygame.image.load(os.path.join("Assets/Other", "Track.png"))
 
 b_jogar = pygame.image.load(os.path.join("Assets/Other", "botao_jogar.png"))
@@ -333,71 +333,34 @@ class dinossauro:
             proj.draw(tela)
 
 class cloud:
+
     #nuvem :D
-    def __init__(self):
+    def __init__(self,nsei):
+        self.nsei = nsei
         self.x = largura_tela + random.randint(700, 1000)
         self.y = random.randint(40, 110)
-        self.image = nuvem
+        self.image = nuvem[self.nsei]
         self.largura = self.image.get_width()
+        
+       
 
     def update(self):
         self.x -= vel_jogo
         if self.x < -self.largura:
-            self.x = largura_tela + random.randint(2500, 3000)
+            self.x = largura_tela + random.randint(250, 300)
             self.y = random.randint(50, 100)
-
+        if pygame.time.get_ticks() - self.tempo > 300:
+                    aleatorio = random.randit(1,5) 
+                    if aleatorio == 5:
+                        print("buu")
+                        teste = random.randint(0,1)
+                        if teste == 0:
+                            self.nsei = 1
+                        else:
+                            self.nsei = 2
     def draw(self, tela): 
         tela.blit(self.image, (self.x, self.y))
 
-class Minora:
-    #KAKAKAKAK
-    def __init__(self):
-        self.x = largura_tela + random.randint(1000, 100000)
-        self.y = random.randint(40, 110)
-        self.image = minora
-        self.largura = self.image.get_width()
-
-    def update(self):
-        self.x -= vel_jogo
-        if self.x < -self.largura:
-            self.x = largura_tela + random.randint(2500, 300000)
-            self.y = random.randint(50, 100)
-
-    def draw(self, tela): 
-        tela.blit(self.image, (self.x, self.y))
-
-class Dani:
-    #KAKAKAKAK
-    def __init__(self):
-        self.x = largura_tela + random.randint(1000, 100000)
-        self.y = random.randint(40, 110)
-        self.image = dani
-        self.largura = self.image.get_width()
-
-    def update(self):
-        self.x -= vel_jogo
-        if self.x < -self.largura:
-            self.x = largura_tela + random.randint(2500, 300000)
-            self.y = random.randint(50, 100)
-
-    def draw(self, tela): 
-        tela.blit(self.image, (self.x, self.y))
-class Alexandre:
-    #KAKAKAKAK
-    def __init__(self):
-        self.x = largura_tela + random.randint(1000, 100000)
-        self.y = random.randint(40, 110)
-        self.image = alexandre
-        self.largura = self.image.get_width()
-
-    def update(self):
-        self.x -= vel_jogo
-        if self.x < -self.largura:
-            self.x = largura_tela + random.randint(2500, 300000)
-            self.y = random.randint(50, 100)
-
-    def draw(self, tela): 
-        tela.blit(self.image, (self.x, self.y))
  #obstaculos
 class Obstacle:
    
@@ -466,7 +429,7 @@ class Boss:
         self.rect.y = 150  # Posição Y do boss
         self.vida = 10  # Vida do boss
         self.velocidade = 5  # Velocidade de movimento
-        self.ataque_cooldown = 1000  # Tempo entre ataques (em milissegundos)
+        self.ataque_cooldown = 0  # Tempo entre ataques (em milissegundos)
         self.ultimo_ataque = pygame.time.get_ticks()  # Tempo do último ataque
         self.ataques = []  # Lista de ataques (quadrados vermelhos)
         self.derrotado = True  # Indica se o boss foi derrotado
@@ -560,15 +523,12 @@ def main():
     funcionar = True
     relogio = pygame.time.Clock()
     player = dinossauro()
-    Nuvem = cloud()
-    MINORA = Minora()
-    DANI = Dani()
-    ALEXANDRE = Alexandre()
+    Nuvem = cloud(nsei)
     boss = Boss(boss_img, 0)  # Cria o boss
-    vel_jogo = 40
+    vel_jogo = 14
     x_pos_bg = 0
     y_pos_bg = 380
-    pontos = 2800
+    pontos = 1
     fonte = pygame.font.Font('Minecraft.ttf', 20)
     obstacles = []
     
@@ -667,12 +627,8 @@ def main():
         Nuvem.draw(tela)
         Nuvem.update()
 
-        MINORA.draw(tela)
-        MINORA.update()
-        DANI.draw(tela)
-        DANI.update()
-        ALEXANDRE.draw(tela)
-        ALEXANDRE.update()
+       
+       
 
         background()
         pontuacao()
